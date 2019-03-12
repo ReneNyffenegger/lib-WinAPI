@@ -2,7 +2,7 @@
 
 COPTS=/c /GS- /W4
 
-all:   msgBoxA.exe msgBoxW.exe lastErrA.exe lastErrW.exe 
+all:   msgBoxA.exe msgBoxW.exe lastErrA.exe lastErrW.exe consoleA.exe consoleW.exe
 
 # { lastErr
 
@@ -54,6 +54,31 @@ msgBoxW.exe: ../objs/lib/msgBoxW.obj ../objs/lib/lastErrW.obj ../objs/test/msgBo
 ../objs/test/msgBoxW.obj:    ../msgBox.c ../../msgBox.h
 	cl  $(COPTS) -DUNICODE     ../msgBox.c                  /Fo$@
 
+# }
+
+# { console
+
+consoleA.exe: ../objs/lib/consoleA.obj ../objs/lib/msgBoxA.obj ../objs/lib/lastErrA.obj ../objs/test/consoleA.obj 
+	link $** /nodefaultlib /subsystem:console /entry:test user32.lib kernel32.lib /out:$@
+
+consoleW.exe: ../objs/lib/consoleW.obj ../objs/lib/msgBoxW.obj ../objs/lib/lastErrW.obj ../objs/test/consoleW.obj 
+	link $** /nodefaultlib /subsystem:console /entry:test user32.lib kernel32.lib /out:$@
+
+
+
+../objs/lib/consoleA.obj:  ../../console.c ../../msgBox.h ../../console.h
+	cl $(COPTS)              ../../console.c                  /Fo$@
+
+../objs/lib/consoleW.obj:  ../../console.c ../../msgBox.h ../../console.h
+	cl $(COPTS) -DUNICODE    ../../console.c                  /Fo$@
+
+
+
+../objs/test/consoleA.obj:    ../console.c ../../msgBox.h ../../console.h
+	cl $(COPTS)                 ../console.c                  /Fo$@
+
+../objs/test/consoleW.obj:    ../console.c ../../msgBox.h ../../console.h
+	cl  $(COPTS) -DUNICODE      ../console.c                  /Fo$@
 
 # }
 
