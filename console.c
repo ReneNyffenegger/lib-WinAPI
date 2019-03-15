@@ -89,6 +89,8 @@ void write(LPCTSTR text) {
 
      DWORD nofCharsWritten;
 
+     if (!activeConsole) activeConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
      WriteConsole(
          activeConsole,
          text,
