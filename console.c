@@ -3,6 +3,8 @@
 #include "msgBox.h"
 #include "lastErr.h"
 
+HANDLE activeConsole = 0;
+
 HANDLE newConsoleBuffer(SHORT width, SHORT height, WORD color) {
 
     HANDLE console;
@@ -34,10 +36,10 @@ HANDLE newConsoleBuffer(SHORT width, SHORT height, WORD color) {
       info.wAttributes = color;
     }
 
-    info.srWindow.Left     = 0;
-    info.srWindow.Top      = 0;
-    info.srWindow.Right    = width  - 1; // TODO: Should or can the new width be
-    info.srWindow.Bottom   = height - 1; //       stated here?
+    info.srWindow.Left     =      0;
+    info.srWindow.Top      =      0;
+    info.srWindow.Right    = width ; // TODO: Should or can the new width be
+    info.srWindow.Bottom   = height; //       stated here?
 
     if (! SetConsoleScreenBufferInfoEx(console,   &info)) {
         msgBox(TEXT("SetConsoleScreenBufferInfoEx"));
@@ -56,6 +58,7 @@ int activateConsole(HANDLE console) {
         msgBoxLastErr();
         return 0;
     }
+    activeConsole = console;
     return 1;
 }
 
@@ -80,4 +83,17 @@ int setConsoleWindowPos(HANDLE console, SHORT top, SHORT left, SHORT width, SHOR
 
 int setConsoleWindowSize(HANDLE console, SHORT width, SHORT height) {
     return setConsoleWindowPos(console, 0, 0, width, height);
+}
+
+void write(LPCTSTR text) {
+
+     DWORD nofCharsWritten;
+
+     WriteConsole(
+         activeConsole,
+         text,
+         lstrlen(text),
+        &nofCharsWritten,
+         NULL);
+
 }

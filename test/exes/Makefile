@@ -1,6 +1,6 @@
 .SILENT:
 
-COPTS=/c /GS- /W4
+COPTS=/c /GS- /W4 /source-charset:utf-8
 
 all:   msgBoxA.exe msgBoxW.exe lastErrA.exe lastErrW.exe consoleA.exe consoleW.exe
 
