@@ -6,4 +6,3 @@ int    setConsoleWindowPos (HANDLE console, SHORT top, SHORT left, SHORT width, 
 int    setConsoleWindowSize(HANDLE console, SHORT width, SHORT height);
 
 void   write(LPCTSTR text);
-
