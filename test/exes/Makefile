@@ -1,4 +1,4 @@
-.SILENT:
+# .SILENT:
 
 COPTS=/c /GS- /W4 /source-charset:utf-8
 
@@ -9,23 +9,23 @@ all:   msgBoxA.exe msgBoxW.exe lastErrA.exe lastErrW.exe consoleA.exe consoleW.e
 procA.exe: ../objs/lib/procA.obj ../objs/test/procA.obj ../objs/lib/lastErrA.obj ../objs/lib/msgBoxA.obj ../objs/lib/consoleA.obj
 	link $** /nodefaultlib /subsystem:console /entry:test user32.lib kernel32.lib psapi.lib shlwapi.lib /out:$@
 
-procW.exe: ../objs/lib/procW.obj ../objs/test/procW.obj ../objs/lib/lastErrW.obj ../objs/lib/msgBoxW.obj ../objs/lib/consoleA.obj
+procW.exe: ../objs/lib/procW.obj ../objs/test/procW.obj ../objs/lib/lastErrW.obj ../objs/lib/msgBoxW.obj ../objs/lib/consoleW.obj
 	link $** /nodefaultlib /subsystem:console /entry:test user32.lib kernel32.lib psapi.lib shlwapi.lib /out:$@
 
 
-../objs/lib/procA.obj:  ../../proc.c ../../proc.h  ../../lastErr.h
-	cl $(COPTS)             ../../proc.c                  /Fo$@
+../objs/lib/procA.obj:    ../../proc.c     ../../proc.h  ../../lastErr.h
+	cl $(COPTS)             ../../proc.c                     /Fo$@
 
-../objs/lib/procW.obj:  ../../proc.c ../../proc.h  ../../lastErr.h
-	cl $(COPTS) -DUNICODE   ../../proc.c                  /Fo$@
+../objs/lib/procW.obj:    ../../proc.c     ../../proc.h  ../../lastErr.h
+	cl $(COPTS) -DUNICODE   ../../proc.c                     /Fo$@
 
 
 
-../objs/test/procA.obj:    ../proc.c ../../proc.h
-	cl $(COPTS)                ../proc.c                  /Fo$@
+../objs/test/procA.obj:      ../proc.c    ../../proc.h
+	cl $(COPTS)                ../proc.c                     /Fo$@
 
-../objs/test/procW.obj:    ../proc.c ../../proc.h
-	cl  $(COPTS) -DUNICODE     ../msgBox.c                /Fo$@
+../objs/test/procW.obj:      ../proc.c    ../../proc.h
+	cl  $(COPTS) -DUNICODE     ../proc.c                     /Fo$@
 
 # }
 
@@ -60,7 +60,7 @@ lastErrW.exe: ../objs/lib/lastErrW.obj ../objs/test/lastErrW.obj
 msgBoxA.exe: ../objs/lib/msgBoxA.obj ../objs/lib/lastErrA.obj  ../objs/test/msgBoxA.obj 
 	link $** /nodefaultlib /subsystem:console /entry:test user32.lib kernel32.lib /out:$@
 
-msgBoxW.exe: ../objs/lib/msgBoxW.obj ../objs/lib/lastErrW.obj ../objs/test/msgBoxW.obj 
+msgBoxW.exe: ../objs/lib/msgBoxW.obj ../objs/lib/lastErrW.obj  ../objs/test/msgBoxW.obj 
 	link $** /nodefaultlib /subsystem:console /entry:test user32.lib kernel32.lib /out:$@
 
 

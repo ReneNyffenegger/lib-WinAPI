@@ -23,5 +23,17 @@ int cbEnumProc(DWORD procId, HANDLE hProc) {
 
 
 int test() {
+    HANDLE procA;
+    HANDLE procW;
+    TCHAR  buf[500];
+
     enumProcs(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, cbEnumProc);
+ 
+    procA = procByName(TEXT("procA.exe"));
+    procW = procByName(TEXT("procW.exe"));
+
+    wsprintf(buf, TEXT("procA = %d\nprocW = %d\n"), procA, procW);
+    write(buf);
+
+    ExitProcess(0);
 }

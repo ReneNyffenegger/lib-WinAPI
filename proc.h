@@ -8,3 +8,5 @@ typedef int (*callBack_enumProcMod)(HANDLE hMod);
 
 void enumProcs   (DWORD desiredAccess, callBack_enumProc);
 void enumProcMods(HANDLE hMod, callBack_enumProcMod);
+
+HANDLE procByName(LPCTSTR procName);
